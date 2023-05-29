@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface imageMapper {
     void createImage(imageDTO image) throws Exception;
+    imageDTO readImageByContent(String content) throws Exception;
 }

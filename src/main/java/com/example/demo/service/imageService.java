@@ -6,6 +6,7 @@ import com.example.demo.dto.urlImageDTO;
 import org.springframework.stereotype.Service;
 
 public interface imageService {
-    imageDTO createImage(urlImageDTO urlImage) throws Exception;
-    imageDTO createImage(base64ImageDTO base64Image) throws Exception;
+    void createImage(urlImageDTO urlImage) throws Exception;
+    void createImage(base64ImageDTO base64Image) throws Exception;
+    imageDTO readImageByContent(String content) throws Exception;
 }

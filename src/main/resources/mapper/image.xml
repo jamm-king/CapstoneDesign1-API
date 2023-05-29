@@ -12,4 +12,12 @@
         )
         ON DUPLICATE KEY UPDATE alt_text = #{altText};
     </insert>
+    <select id="readImageByContent" resultType="com.example.demo.dto.imageDTO">
+        SELECT
+            id, content, alt_text, type
+        FROM
+            image
+        WHERE
+            content = #{content};
+    </select>
 </mapper>

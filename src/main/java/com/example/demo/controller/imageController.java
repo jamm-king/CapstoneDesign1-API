@@ -30,11 +30,12 @@ public class imageController {
 
     @PostMapping("/urlImage")
     public imageDTO createImage(@RequestBody urlImageDTO urlImage) throws Exception {
-        return imageService.createImage(urlImage);
+        imageService.createImage(urlImage);
+        return imageService.readImageByContent(urlImage.getUrl());
     }
     @PostMapping("/base64Image")
     public imageDTO createImage(@RequestBody base64ImageDTO base64Image) throws Exception {
-        return imageService.createImage(base64Image);
+        imageService.createImage(base64Image);
+        return imageService.readImageByContent(base64Image.getBase64String());
     }
-
 }
