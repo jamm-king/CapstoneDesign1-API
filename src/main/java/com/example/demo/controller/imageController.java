@@ -1,26 +1,14 @@
 package com.example.demo.controller;
 
-import java.net.URI;
-
 import com.example.demo.dto.base64ImageDTO;
 import com.example.demo.dto.imageDTO;
 import com.example.demo.dto.urlImageDTO;
 import com.example.demo.service.imageService;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/image")
@@ -29,13 +17,19 @@ public class imageController {
     private imageService imageService;
 
     @PostMapping("/urlImage")
-    public imageDTO createImage(@RequestBody urlImageDTO urlImage) throws Exception {
+    public ResponseEntity<imageDTO> createImage(@RequestHeader HttpHeaders requestHeader, @RequestBody urlImageDTO urlImage) throws Exception {
         imageService.createImage(urlImage);
-        return imageService.readImageByContent(urlImage.getUrl());
+        imageDTO responseBody = imageService.readImageByContent(urlImage.getUrl());
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("Access-Control-Allow-Origin", requestHeader.getOrigin());
+        return new ResponseEntity<imageDTO>(responseBody, responseHeader, HttpStatus.OK);
     }
     @PostMapping("/base64Image")
-    public imageDTO createImage(@RequestBody base64ImageDTO base64Image) throws Exception {
+    public ResponseEntity<imageDTO> createImage(@RequestHeader HttpHeaders requestHeader, @RequestBody base64ImageDTO base64Image) throws Exception {
         imageService.createImage(base64Image);
-        return imageService.readImageByContent(base64Image.getBase64String());
+        imageDTO responseBody = imageService.readImageByContent(base64Image.getBase64String());
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("Access-Control-Allow-Origin", requestHeader.getOrigin());
+        return new ResponseEntity<imageDTO>(responseBody, responseHeader, HttpStatus.OK);
     }
 }

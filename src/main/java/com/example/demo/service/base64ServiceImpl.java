@@ -12,7 +12,7 @@ public class base64ServiceImpl implements base64Service {
     @Override
     public int store(base64ImageDTO base64Image) {
         byte[] data = Base64.decodeBase64(base64Image.getBase64String().getBytes());
-        try(OutputStream stream = new FileOutputStream("src/main/resources/static/image/temp/temp.bmp")) {
+        try(OutputStream stream = new FileOutputStream("temp.bmp")) {
             stream.write(data);
             return 0;
         }

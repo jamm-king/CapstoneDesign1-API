@@ -133,7 +133,7 @@ public class azureCVServiceImpl implements azureCVService {
     @Override
     public String captionImageV4() {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        File file = new File("src/main/resources/static/image/temp/temp.bmp");
+        File file = new File("temp.bmp");
 
         try {
             String uriBase = endpoint + "computervision/imageanalysis:analyze";
@@ -187,7 +187,7 @@ public class azureCVServiceImpl implements azureCVService {
     @Override
     public String ocrImageV4() {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        File file = new File("src/main/resources/static/image/temp/temp.bmp");
+        File file = new File("temp.bmp");
 
         try {
             String uriBase = endpoint + "computervision/imageanalysis:analyze";
